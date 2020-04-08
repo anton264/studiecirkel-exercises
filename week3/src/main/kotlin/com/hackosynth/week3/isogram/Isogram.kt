@@ -4,8 +4,7 @@ object Isogram {
     fun isIsogram(input: String): Boolean {
         val cleanInput = Regex("[^a-zA-Z]").replace(input, "").toLowerCase()
         val countChar = cleanInput.groupingBy { it }.eachCount().values
-        //cant shorten return, why?
-        countChar.map { if (it != 1) return false }
+        countChar.map { if (it != 1) return false }  //cant shorten return, why?
         return true
     }
 }
