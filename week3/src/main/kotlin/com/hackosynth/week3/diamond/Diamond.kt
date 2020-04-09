@@ -26,7 +26,7 @@ object Diamond {
         list.add(0, "${firstLastLineSpaces}A${firstLastLineSpaces}")
         //list.add("${firstLastLineSpaces}A${firstLastLineSpaces}")
         val list2 = list
-        for (item in originalrange.minus(2) downTo 0) {
+        for (item in list.size.minus(2) downTo 0) {
             list2.add(list[item])
         }
         print(list)
