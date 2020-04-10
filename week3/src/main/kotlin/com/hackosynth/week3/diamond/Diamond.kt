@@ -3,40 +3,34 @@ package com.hackosynth.week3.diamond
 object Diamond {
     fun printToList(letter: Char): List<String> {
         if (letter.toUpperCase() == 'A') return listOf("A")
-        var modLetter = letter
-        val originalrange = ('A'..letter).count()
-        var range = ('A'..letter).count() + 2
-        var list = mutableListOf<String>()
-        var leadingSpaces = 0
-        while (modLetter > 'A') {
-            leadingSpaces = (modLetter..letter).count() - 1
-            val middleSpaces = ('B'..modLetter).count()
-            list.add(
+        var currentLetter = letter
+        val originalRange = ('A'..letter).count()
+        var currentRange = ('A'..letter).count() + 2
+        val diamond = mutableListOf<String>()
+        while (currentLetter > 'A') {
+            val leadingOrTrailingSpaces = getWhiteSpace((currentLetter..letter).count() - 1)
+            val middleSpaces = getWhiteSpace(('B'..currentLetter).count().times(2).minus(1))
+            diamond.add(
                 0,
-                spaces(leadingSpaces) + modLetter + spaces(
-                    middleSpaces.times(2).minus(1),
-                    modLetter
-                ) + modLetter + spaces(leadingSpaces)
+                leadingOrTrailingSpaces +
+                        currentLetter +
+                        middleSpaces +
+                        currentLetter +
+                        leadingOrTrailingSpaces
             )
-            modLetter--
-            range -= 2
-            leadingSpaces++
+            currentLetter--
+            currentRange -= 2
         }
-        val firstLastLineSpaces = " ".repeat(originalrange - 1)
-        list.add(0, "${firstLastLineSpaces}A${firstLastLineSpaces}")
-        //list.add("${firstLastLineSpaces}A${firstLastLineSpaces}")
-        val list2 = list
-        for (item in list.size.minus(2) downTo 0) {
-            list2.add(list[item])
+        val firstLastLineSpaces = getWhiteSpace(originalRange - 1)
+        diamond.add(0, "${firstLastLineSpaces}A${firstLastLineSpaces}")
+
+        for (item in diamond.size.minus(2) downTo 0) {
+            diamond.add(diamond[item])
         }
-        print(list)
-        return list
+        return diamond
     }
 
-    private fun spaces(number: Int, curChar: Char = 'Z'): String {
-        return when (curChar) {
-            'B' -> " "
-            else -> " ".repeat(number)
-        }
+    private fun getWhiteSpace(number: Int): String {
+        return " ".repeat(number)
     }
 }
